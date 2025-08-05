@@ -7,7 +7,6 @@ const translations = {
             legPatterns: "Patrones de patas",
             landingPage: "Inicio",
             walkingGaits: "Marchas de caminata",
-            armsControl: "Control de brazos",
         },
         nav: {
             kofi: "Compra un Ko-Fi a Mithi 🍵",
@@ -35,15 +34,6 @@ const translations = {
             isWalk: "Caminar",
             isRotate: "Girar",
         },
-        arms: {
-            selectArm: "Seleccionar Brazo",
-            left: "Izquierdo",
-            right: "Derecho",
-            both: "Ambos",
-            direction: "Dirección",
-            same: "Igual",
-            opposite: "Opuesta",
-        },
     },
     en: {
         sections: {
@@ -53,7 +43,6 @@ const translations = {
             legPatterns: "Leg Patterns",
             landingPage: "Home",
             walkingGaits: "Walking Gaits",
-            armsControl: "Arm Control",
         },
         nav: {
             kofi: "Buy Mithi Ko-Fi 🍵",
@@ -80,15 +69,6 @@ const translations = {
             isBackward: "Backward",
             isWalk: "Walk",
             isRotate: "Rotate",
-        },
-        arms: {
-            selectArm: "Select Arm",
-            left: "Left",
-            right: "Right",
-            both: "Both",
-            direction: "Direction",
-            same: "Same",
-            opposite: "Opposite",
         },
     },
 }
