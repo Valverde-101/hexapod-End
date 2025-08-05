@@ -11,11 +11,22 @@
 
 body,
 code,
-input {
+input,
+select {
     font-family: Consolas, Monaco, Menlo, Courier, monospace;
 }
 .button {
     font-family: Consolas, Monaco, Menlo, Courier, monospace;
+}
+
+select {
+    color: var(--c1-green);
+    background-color: var(--c0-dark-grey);
+    border: 1px solid var(--c4-blue);
+    font-size: 0.6rem;
+    font-weight: bold;
+    padding: 5px;
+    margin-left: 5px;
 }
 
 h1,
