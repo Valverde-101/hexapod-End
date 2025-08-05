@@ -9,6 +9,9 @@ const DIMENSIONS = {
     coxia: 94,
     femur: 165,
     tibia: 154,
+    armCoxia: 80,
+    armFemur: 90,
+    armTibia: 100,
 }
 
 describe("Dimension Widget", () => {

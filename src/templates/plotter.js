@@ -9,7 +9,7 @@ const _drawHexapod = hexapod => {
     const bodyY = polygonVertices.map(point => point.y)
     const bodyZ = polygonVertices.map(point => point.z)
     const { head, cog } = hexapod.body
-    const { cogProjection, legs, groundContactPoints } = hexapod
+    const { cogProjection, legs, arms, groundContactPoints } = hexapod
 
     const dBodyMesh = {
         ...DATA[0],
@@ -53,8 +53,15 @@ const _drawHexapod = hexapod => {
         z: leg.allPointsList.map(point => point.z),
     }))
 
+    const dArms = arms.map((arm, index) => ({
+        ...DATA[index + 11],
+        x: arm.allPointsList.map(point => point.x),
+        y: arm.allPointsList.map(point => point.y),
+        z: arm.allPointsList.map(point => point.z),
+    }))
+
     const dSupportPolygon = {
-        ...DATA[11],
+        ...DATA[13],
         x: groundContactPoints.map(point => point.x),
         y: groundContactPoints.map(point => point.y),
         z: groundContactPoints.map(point => point.z),
@@ -63,38 +70,38 @@ const _drawHexapod = hexapod => {
     const axisScale = hexapod.body.dimensions.front / 2
     const { xAxis, yAxis, zAxis } = hexapod.localAxes
     const hXaxis = {
-        ...DATA[12],
+        ...DATA[14],
         x: [cog.x, cog.x + axisScale * xAxis.x],
         y: [cog.y, cog.y + axisScale * xAxis.y],
         z: [cog.z, cog.z + axisScale * xAxis.z],
     }
 
     const hYaxis = {
-        ...DATA[13],
+        ...DATA[15],
         x: [cog.x, cog.x + axisScale * yAxis.x],
         y: [cog.y, cog.y + axisScale * yAxis.y],
         z: [cog.z, cog.z + axisScale * yAxis.z],
     }
 
     const hZaxis = {
-        ...DATA[14],
+        ...DATA[16],
         x: [cog.x, cog.x + axisScale * zAxis.x],
         y: [cog.y, cog.y + axisScale * zAxis.y],
         z: [cog.z, cog.z + axisScale * zAxis.z],
     }
 
     const wXaxis = {
-        ...DATA[15],
+        ...DATA[17],
         x: [0, axisScale],
     }
 
     const wYaxis = {
-        ...DATA[16],
+        ...DATA[18],
         y: [0, axisScale],
     }
 
     const wZaxis = {
-        ...DATA[17],
+        ...DATA[19],
         z: [0, axisScale],
     }
 
@@ -105,6 +112,7 @@ const _drawHexapod = hexapod => {
         dCog,
         dCogProjection,
         ...dLegs,
+        ...dArms,
         dSupportPolygon,
         hXaxis,
         hYaxis,

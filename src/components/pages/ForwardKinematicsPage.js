@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import LegPoseWidget from "../pagePartials/LegPoseWidgets"
 import { Card, ToggleSwitch, ResetButton, NumberInputField, Slider } from "../generic"
+import ArmsMenu from "../ArmsMenu"
 import { DEFAULT_POSE } from "../../templates"
 import { LEG_NAMES } from "../vars"
 import translations from "../../translations"
@@ -58,12 +59,20 @@ class ForwardKinematicsPage extends Component {
         const { language } = this.props
         const title = translations[language].sections[this.pageName]
         return (
-            <Card title={<h2>{title}</h2>} other={this.toggleSwitch}>
-                <div className="grid-cols-2">
-                    {LEG_NAMES.map(name => this.legPoseWidget(name))}
-                </div>
-                <ResetButton reset={this.reset} language={language} />
-            </Card>
+            <>
+                <Card title={<h2>{title}</h2>} other={this.toggleSwitch}>
+                    <div className="grid-cols-2">
+                        {LEG_NAMES.map(name => this.legPoseWidget(name))}
+                    </div>
+                    <ResetButton reset={this.reset} language={language} />
+                </Card>
+                <ArmsMenu
+                    language={language}
+                    pose={this.props.params.pose}
+                    onUpdate={this.updatePose}
+                    WidgetType={this.state.WidgetType}
+                />
+            </>
         )
     }
 }
