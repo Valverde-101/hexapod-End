@@ -84,8 +84,9 @@ class WalkingGaitsPage extends Component {
     onUpdate = (pose, currentTwist) => {
         this.currentTwist = currentTwist
 
-        const { dimensions } = this.props.params
-        const hexapod = new VirtualHexapod(dimensions, pose, { wontRotate: true })
+        const { dimensions, pose: currentPose } = this.props.params
+        const fullPose = { ...currentPose, ...pose }
+        const hexapod = new VirtualHexapod(dimensions, fullPose, { wontRotate: true })
 
         // ❗❗️HACK When we've passed undefined pose values for some reason
         if (!hexapod || !hexapod.body) {

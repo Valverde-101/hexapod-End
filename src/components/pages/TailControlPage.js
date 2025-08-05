@@ -1,8 +1,9 @@
 import React, { Component } from "react"
 import TailPoseWidget from "../pagePartials/TailPoseWidget"
 import { Card, ResetButton, ToggleSwitch, NumberInputField, Slider } from "../generic"
-import { DEFAULT_TAIL_POSE } from "../../templates"
+import { DEFAULT_TAIL_POSE, DEFAULT_DIMENSIONS } from "../../templates"
 import translations from "../../translations"
+import { TAIL_DIMENSION_NAMES, RANGE_PARAMS } from "../vars"
 
 class TailControlPage extends Component {
     pageName = "tailControl"
@@ -11,9 +12,20 @@ class TailControlPage extends Component {
     componentDidMount = () => this.props.onMount(this.pageName)
 
     reset = () => {
-        const pose = this.props.params.pose
+        const { pose, dimensions } = this.props.params
         const newPose = { ...pose, tail: { ...DEFAULT_TAIL_POSE } }
+        const newDimensions = {
+            ...dimensions,
+            tailSegment1: DEFAULT_DIMENSIONS.tailSegment1,
+            tailSegment2: DEFAULT_DIMENSIONS.tailSegment2,
+            tailSegment3: DEFAULT_DIMENSIONS.tailSegment3,
+            tailSegment4: DEFAULT_DIMENSIONS.tailSegment4,
+            tailSegment5: DEFAULT_DIMENSIONS.tailSegment5,
+            tailThickness: DEFAULT_DIMENSIONS.tailThickness,
+            tailMountAngle: DEFAULT_DIMENSIONS.tailMountAngle,
+        }
         this.props.onUpdate("pose", { pose: newPose })
+        this.props.onUpdate("dimensions", { dimensions: newDimensions })
     }
 
     toggleMode = () => {
@@ -26,6 +38,32 @@ class TailControlPage extends Component {
         const tail = { ...pose.tail, [angle]: value }
         const newPose = { ...pose, tail }
         this.props.onUpdate("pose", { pose: newPose })
+    }
+
+    updateDimension = (name, value) => {
+        const dimensions = {
+            ...this.props.params.dimensions,
+            [name]: Number(value),
+        }
+        this.props.onUpdate("dimensions", { dimensions })
+    }
+
+    get dimensionFields() {
+        const { minVal, maxVal, stepVal } = RANGE_PARAMS.dimensionInputs
+        const dims = this.props.params.dimensions
+        return (
+            <div className="grid-cols-3">
+                {TAIL_DIMENSION_NAMES.map(name => (
+                    <NumberInputField
+                        key={name}
+                        name={name}
+                        value={dims[name]}
+                        rangeParams={{ minVal, maxVal, stepVal }}
+                        handleChange={this.updateDimension}
+                    />
+                ))}
+            </div>
+        )
     }
 
     renderWidget = name => (
@@ -60,6 +98,7 @@ class TailControlPage extends Component {
         return (
             <Card title={<h2>{title}</h2>} other={this.toggleSwitch}>
                 <div className="grid-cols-1">{this.renderWidget("tail")}</div>
+                {this.dimensionFields}
                 <ResetButton reset={this.reset} language={language} />
             </Card>
         )
