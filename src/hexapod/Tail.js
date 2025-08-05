@@ -18,10 +18,10 @@ class Tail {
     }
 
     _computePoints() {
-        const { segments } = this.dimensions
+        const { segments, mountAngle = 0 } = this.dimensions
         const { yaw, theta1, theta2, theta3, theta4, theta5 } = this.pose
         const angles = [theta1, theta2, theta3, theta4, theta5]
-        const yawRad = degToRad(yaw)
+        const yawRad = degToRad(yaw + mountAngle)
         let cumulative = 0
         let x = this.originPoint.x
         let y = this.originPoint.y
@@ -57,12 +57,9 @@ class Tail {
     }
 
     _buildClone(allPointsList) {
-        const clone = new Tail(
-            this.dimensions,
-            this.originPoint,
-            this.pose,
-            { hasNoPoints: true }
-        )
+        const clone = new Tail(this.dimensions, this.originPoint, this.pose, {
+            hasNoPoints: true,
+        })
         clone.allPointsList = allPointsList
         return clone
     }
@@ -140,4 +137,3 @@ class Tail {
 }
 
 export default Tail
-

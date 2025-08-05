@@ -26,6 +26,13 @@ const DIMENSION_NAMES = [
     "armCoxia",
     "armFemur",
     "armTibia",
+    "tailSegment1",
+    "tailSegment2",
+    "tailSegment3",
+    "tailSegment4",
+    "tailSegment5",
+    "tailThickness",
+    "tailMountAngle",
 ]
 const LEG_NAMES = [
     "leftFront",

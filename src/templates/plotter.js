@@ -9,7 +9,7 @@ const _drawHexapod = hexapod => {
     const bodyY = polygonVertices.map(point => point.y)
     const bodyZ = polygonVertices.map(point => point.z)
     const { head, cog } = hexapod.body
-    const { cogProjection, legs, arms = [], groundContactPoints } = hexapod
+    const { cogProjection, legs, arms = [], tail, groundContactPoints } = hexapod
 
     const dBodyMesh = {
         ...DATA[0],
@@ -60,6 +60,14 @@ const _drawHexapod = hexapod => {
         y: arm.allPointsList.map(point => point.y),
         z: arm.allPointsList.map(point => point.z),
     }))
+
+    const dTail = {
+        ...DATA[5],
+        name: "tail",
+        x: tail.allPointsList.map(point => point.x),
+        y: tail.allPointsList.map(point => point.y),
+        z: tail.allPointsList.map(point => point.z),
+    }
 
     const dSupportPolygon = {
         ...DATA[11],
@@ -114,6 +122,7 @@ const _drawHexapod = hexapod => {
         dCogProjection,
         ...dLegs,
         ...dArms,
+        dTail,
         dSupportPolygon,
         hXaxis,
         hYaxis,

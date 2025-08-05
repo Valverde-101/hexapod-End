@@ -1,10 +1,11 @@
 import { POSITION_NAMES_LIST, POSITION_NAME_TO_ID_MAP } from "./constants"
 import { matrixToAlignVectorAtoB, tRotZmatrix } from "./geometry"
-import { DEFAULT_POSE } from "../templates"
+import { DEFAULT_POSE, DEFAULT_DIMENSIONS } from "../templates"
 
 import Vector from "./Vector"
 import Hexagon from "./Hexagon"
 import Linkage from "./Linkage"
+import Tail from "./Tail"
 
 import * as oSolverGeneral from "./solvers/orient/orientSolverGeneral"
 import * as oSolverSpecific from "./solvers/orient/orientSolverSpecific"
@@ -133,7 +134,8 @@ class VirtualHexapod {
         flags = { hasNoPoints: false, assumeKnownGroundPoints: false, wontRotate: false }
     ) {
         const completePose = { ...DEFAULT_POSE, ...pose }
-        Object.assign(this, { dimensions, pose: completePose })
+        const completeDimensions = { ...DEFAULT_DIMENSIONS, ...dimensions }
+        Object.assign(this, { dimensions: completeDimensions, pose: completePose })
 
         if (flags.hasNoPoints) {
             return
@@ -169,6 +171,9 @@ class VirtualHexapod {
         ]
         const armsNoGravity = buildArmsList(armBodyPoints, this.pose, this.armDimensions)
 
+        const tailOrigin = new Vector(0, -this.dimensions.side, 0, "tailBase")
+        const tailNoGravity = new Tail(this.tailDimensions, tailOrigin, this.pose.tail)
+
         // `solved` has:
         // - new orientation of the body (nAxis)
         // - which legs are on the ground (groundLegsNoGravity)
@@ -200,6 +205,7 @@ class VirtualHexapod {
         this.arms = armsNoGravity.map(arm =>
             arm.cloneTrotShift(transformMatrix, 0, 0, solved.height)
         )
+        this.tail = tailNoGravity.cloneTrotShift(transformMatrix, 0, 0, solved.height)
         this.body = flatHexagon.cloneTrotShift(transformMatrix, 0, 0, solved.height)
         this.localAxes = transformLocalAxes(DEFAULT_LOCAL_AXES, transformMatrix)
 
@@ -260,6 +266,29 @@ class VirtualHexapod {
         return { coxia: armCoxia, femur: armFemur, tibia: armTibia }
     }
 
+    get tailDimensions() {
+        const {
+            tailSegment1,
+            tailSegment2,
+            tailSegment3,
+            tailSegment4,
+            tailSegment5,
+            tailThickness,
+            tailMountAngle,
+        } = this.dimensions
+        return {
+            segments: [
+                tailSegment1,
+                tailSegment2,
+                tailSegment3,
+                tailSegment4,
+                tailSegment5,
+            ],
+            thickness: tailThickness,
+            mountAngle: tailMountAngle,
+        }
+    }
+
     get groundContactPoints() {
         return this.legPositionsOnGround.map(position => {
             const index = POSITION_NAME_TO_ID_MAP[position]
@@ -272,18 +301,20 @@ class VirtualHexapod {
         const body = this.body.cloneTrot(transformMatrix)
         const legs = this.legs.map(leg => leg.cloneTrot(transformMatrix))
         const arms = this.arms.map(arm => arm.cloneTrot(transformMatrix))
+        const tail = this.tail.cloneTrot(transformMatrix)
         const localAxes = transformLocalAxes(this.localAxes, transformMatrix)
-        return this._buildClone(body, legs, arms, localAxes)
+        return this._buildClone(body, legs, arms, tail, localAxes)
     }
 
     cloneShift(tx, ty, tz) {
         const body = this.body.cloneShift(tx, ty, tz)
         const legs = this.legs.map(leg => leg.cloneShift(tx, ty, tz))
         const arms = this.arms.map(arm => arm.cloneShift(tx, ty, tz))
-        return this._buildClone(body, legs, arms, this.localAxes)
+        const tail = this.tail.cloneShift(tx, ty, tz)
+        return this._buildClone(body, legs, arms, tail, this.localAxes)
     }
 
-    _buildClone(body, legs, arms, localAxes) {
+    _buildClone(body, legs, arms, tail, localAxes) {
         // FIXME:
         // After shifting and/or rotating the hexapod
         // We can no longer guarrantee that the legPositionsOnGround
@@ -294,6 +325,7 @@ class VirtualHexapod {
             body,
             legs,
             arms,
+            tail,
             localAxes,
             legPositionsOnGround: this.legPositionsOnGround,
             foundSolution: this.foundSolution,
@@ -331,6 +363,7 @@ class VirtualHexapod {
         this.body = this.body.cloneTrot(twistMatrix)
         this.legs = this.legs.map(leg => leg.cloneTrot(twistMatrix))
         this.arms = this.arms.map(arm => arm.cloneTrot(twistMatrix))
+        this.tail = this.tail.cloneTrot(twistMatrix)
         this.localAxes = transformLocalAxes(this.localAxes, twistMatrix)
     }
 }

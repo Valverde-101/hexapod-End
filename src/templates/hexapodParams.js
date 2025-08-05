@@ -31,6 +31,13 @@ const DEFAULT_DIMENSIONS = {
     armCoxia: 80,
     armFemur: 80,
     armTibia: 80,
+    tailSegment1: 80,
+    tailSegment2: 80,
+    tailSegment3: 80,
+    tailSegment4: 80,
+    tailSegment5: 80,
+    tailThickness: 20,
+    tailMountAngle: 0,
 }
 
 const DEFAULT_POSE = {
