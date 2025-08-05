@@ -8,7 +8,6 @@ const translations = {
             landingPage: "Inicio",
             walkingGaits: "Marchas de caminata",
             armControl: "Control de brazos",
-            tailControl: "Control de cola",
         },
         nav: {
             kofi: "Compra un Ko-Fi a Mithi 🍵",
@@ -52,7 +51,6 @@ const translations = {
             landingPage: "Home",
             walkingGaits: "Walking Gaits",
             armControl: "Arm Control",
-            tailControl: "Tail Control",
         },
         nav: {
             kofi: "Buy Mithi Ko-Fi 🍵",

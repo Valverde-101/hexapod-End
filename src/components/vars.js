@@ -11,11 +11,9 @@ const PATH_NAMES = {
     landingPage: "/",
     walkingGaits: "/walking-gaits",
     armControl: "/arm-control",
-    tailControl: "/tail-control",
 }
 
 const ANGLE_NAMES = ["alpha", "beta", "gamma"]
-const TAIL_ANGLE_NAMES = ["yaw", "theta1", "theta2", "theta3", "theta4", "theta5"]
 const DIMENSION_NAMES = [
     "front",
     "side",
@@ -80,12 +78,6 @@ const RANGE_PARAMS = {
     alpha: RANGES[90],
     beta: RANGES[180],
     gamma: RANGES[180],
-    yaw: RANGES[180],
-    theta1: RANGES[90],
-    theta2: RANGES[90],
-    theta3: RANGES[90],
-    theta4: RANGES[90],
-    theta5: RANGES[90],
 }
 
 const GAIT_RANGE_PARAMS = {
@@ -137,11 +129,6 @@ const PATH_LINKS = [
         icon: ICON_COMPONENTS.circle,
     },
     {
-        path: PATH_NAMES.tailControl,
-        description: t.sections.tailControl,
-        icon: ICON_COMPONENTS.circle,
-    },
-    {
         path: PATH_NAMES.walkingGaits,
         description: t.sections.walkingGaits,
         icon: ICON_COMPONENTS.circle,
@@ -169,7 +156,6 @@ const URL_LINKS = [
 export {
     PATH_NAMES,
     ANGLE_NAMES,
-    TAIL_ANGLE_NAMES,
     DIMENSION_NAMES,
     LEG_NAMES,
     ARM_NAMES,

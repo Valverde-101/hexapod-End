@@ -10,7 +10,6 @@ import {
     LegPatternPage,
     LandingPage,
     ArmControlPage,
-    TailControlPage,
 } from "./components/pages"
 
 const Page = ({ pageComponent }) => (
@@ -32,9 +31,6 @@ const Page = ({ pageComponent }) => (
         </Route>
         <Route path={PATH_NAMES.armControl} exact>
             {pageComponent(ArmControlPage)}
-        </Route>
-        <Route path={PATH_NAMES.tailControl} exact>
-            {pageComponent(TailControlPage)}
         </Route>
         <Route>
             <Redirect to="/" />
