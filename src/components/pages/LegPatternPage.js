@@ -1,10 +1,11 @@
 import React, { Component } from "react"
 import { sliderList, Card, ResetButton } from "../generic"
 import { DEFAULT_POSE, DEFAULT_PATTERN_PARAMS } from "../../templates"
-import { SECTION_NAMES, ANGLE_NAMES } from "../vars"
+import { ANGLE_NAMES } from "../vars"
+import translations from "../../translations"
 
 class LegPatternPage extends Component {
-    pageName = SECTION_NAMES.legPatterns
+    pageName = "legPatterns"
     state = { patternParams: DEFAULT_PATTERN_PARAMS }
 
     componentDidMount = () => {
@@ -37,12 +38,16 @@ class LegPatternPage extends Component {
         })
     }
 
-    render = () => (
-        <Card title={<h2>{this.pageName}</h2>}>
-            <div className="grid-cols-1">{this.sliders}</div>
-            <ResetButton reset={this.reset} />
-        </Card>
-    )
+    render = () => {
+        const { language } = this.props
+        const title = translations[language].sections[this.pageName]
+        return (
+            <Card title={<h2>{title}</h2>}>
+                <div className="grid-cols-1">{this.sliders}</div>
+                <ResetButton reset={this.reset} language={language} />
+            </Card>
+        )
+    }
 }
 
 export default LegPatternPage

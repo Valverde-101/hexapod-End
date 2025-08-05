@@ -1,5 +1,6 @@
 import React from "react"
-import { ICON_COMPONENTS, RESET_LABEL } from "../vars"
+import { ICON_COMPONENTS } from "../vars"
+import translations from "../../translations"
 
 const AlertBox = ({ info }) => (
     <div className="message">
@@ -37,8 +38,8 @@ const BasicButton = ({ handleClick, children }) => (
     </button>
 )
 
-const ResetButton = ({ reset }) => (
-    <BasicButton handleClick={reset}>{RESET_LABEL}</BasicButton>
+const ResetButton = ({ reset, language }) => (
+    <BasicButton handleClick={reset}>{translations[language].reset}</BasicButton>
 )
 
 export { AlertBox, Card, ToggleSwitch, BasicButton, ResetButton }

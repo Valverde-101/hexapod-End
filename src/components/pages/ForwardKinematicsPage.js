@@ -2,10 +2,11 @@ import React, { Component } from "react"
 import LegPoseWidget from "../pagePartials/LegPoseWidgets"
 import { Card, ToggleSwitch, ResetButton, NumberInputField, Slider } from "../generic"
 import { DEFAULT_POSE } from "../../templates"
-import { SECTION_NAMES, LEG_NAMES } from "../vars"
+import { LEG_NAMES } from "../vars"
+import translations from "../../translations"
 
 class ForwardKinematicsPage extends Component {
-    pageName = SECTION_NAMES.forwardKinematics
+    pageName = "forwardKinematics"
     state = { WidgetType: NumberInputField }
 
     componentDidMount = () => this.props.onMount(this.pageName)
@@ -38,9 +39,14 @@ class ForwardKinematicsPage extends Component {
     )
 
     get toggleSwitch() {
+        const { language } = this.props
+        const value =
+            this.state.WidgetType === Slider
+                ? translations[language].forwardKinematics.slide
+                : translations[language].forwardKinematics.input
         const props = {
             id: "FwdKinematicsSwitch",
-            value: this.state.WidgetType === Slider ? "Slide" : "Input",
+            value,
             handleChange: this.toggleMode,
             showValue: true,
         }
@@ -48,14 +54,18 @@ class ForwardKinematicsPage extends Component {
         return <ToggleSwitch {...props} />
     }
 
-    render = () => (
-        <Card title={<h2>{this.pageName}</h2>} other={this.toggleSwitch}>
-            <div className="grid-cols-2">
-                {LEG_NAMES.map(name => this.legPoseWidget(name))}
-            </div>
-            <ResetButton reset={this.reset} />
-        </Card>
-    )
+    render = () => {
+        const { language } = this.props
+        const title = translations[language].sections[this.pageName]
+        return (
+            <Card title={<h2>{title}</h2>} other={this.toggleSwitch}>
+                <div className="grid-cols-2">
+                    {LEG_NAMES.map(name => this.legPoseWidget(name))}
+                </div>
+                <ResetButton reset={this.reset} language={language} />
+            </Card>
+        )
+    }
 }
 
 export default ForwardKinematicsPage

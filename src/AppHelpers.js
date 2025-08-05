@@ -1,6 +1,6 @@
 import React from "react"
 import { Route, Switch, Redirect } from "react-router-dom"
-import { PATHS } from "./components/vars"
+import { PATH_NAMES } from "./components/vars"
 import * as defaults from "./templates"
 import { VirtualHexapod } from "./hexapod"
 import {
@@ -16,16 +16,16 @@ const Page = ({ pageComponent }) => (
         <Route path="/" exact>
             {pageComponent(LandingPage)}
         </Route>
-        <Route path={PATHS.legPatterns.path} exact>
+        <Route path={PATH_NAMES.legPatterns} exact>
             {pageComponent(LegPatternPage)}
         </Route>
-        <Route path={PATHS.forwardKinematics.path} exact>
+        <Route path={PATH_NAMES.forwardKinematics} exact>
             {pageComponent(ForwardKinematicsPage)}
         </Route>
-        <Route path={PATHS.inverseKinematics.path} exact>
+        <Route path={PATH_NAMES.inverseKinematics} exact>
             {pageComponent(InverseKinematicsPage)}
         </Route>
-        <Route path={PATHS.walkingGaits.path} exact>
+        <Route path={PATH_NAMES.walkingGaits} exact>
             {pageComponent(WalkingGaitsPage)}
         </Route>
         <Route>

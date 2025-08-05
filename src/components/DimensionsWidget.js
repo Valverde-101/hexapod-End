@@ -2,10 +2,11 @@ import React, { Component } from "react"
 import NumberInputField from "./generic/NumberInputField"
 import { Card, ResetButton, ToggleSwitch } from "./generic/SmallWidgets"
 import { DEFAULT_DIMENSIONS } from "../templates"
-import { SECTION_NAMES, DIMENSION_NAMES, RANGE_PARAMS } from "./vars"
+import { DIMENSION_NAMES, RANGE_PARAMS } from "./vars"
+import translations from "../translations"
 
 class DimensionsWidget extends Component {
-    sectionName = SECTION_NAMES.dimensions
+    sectionKey = "dimensions"
     state = { isFine: true }
 
     reset = () => this.props.onUpdate("dimensions", { dimensions: DEFAULT_DIMENSIONS })
@@ -49,12 +50,16 @@ class DimensionsWidget extends Component {
         return <div className="grid-cols-6">{numberInputFields}</div>
     }
 
-    render = () => (
-        <Card title={<h2>{this.sectionName}</h2>} other={this.toggleSwitch}>
-            {this.NumberInputFields}
-            <ResetButton reset={this.reset} />
-        </Card>
-    )
+    render = () => {
+        const { language = "es" } = this.props
+        const sectionName = translations[language].sections[this.sectionKey]
+        return (
+            <Card title={<h2>{sectionName}</h2>} other={this.toggleSwitch}>
+                {this.NumberInputFields}
+                <ResetButton reset={this.reset} language={language} />
+            </Card>
+        )
+    }
 }
 
 export default DimensionsWidget
