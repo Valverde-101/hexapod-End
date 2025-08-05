@@ -95,7 +95,7 @@ const NavBullets = ({ language, toggleLanguage }) => {
                 <BulletPageLink key={NAV_BULLETS_PREFIX + link.path} link={link} />
             ))}
 
-            <li>
+            <li className="language-button">
                 <button
                     onClick={toggleLanguage}
                     className="link-icon"
