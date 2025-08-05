@@ -1,11 +1,12 @@
 import React, { Component } from "react"
 import { sliderList, Card, ResetButton, ToggleSwitch } from "../generic"
-import { SECTION_NAMES, GAIT_SLIDER_LABELS, GAIT_RANGE_PARAMS } from "../vars"
+import { GAIT_SLIDER_LABELS, GAIT_RANGE_PARAMS } from "../vars"
 import getWalkSequence from "../../hexapod/solvers/walkSequenceSolver"
 import PoseTable from "../pagePartials/PoseTable"
 import { VirtualHexapod } from "../../hexapod"
 import { tRotZmatrix } from "../../hexapod/geometry"
 import { DEFAULT_GAIT_PARAMS } from "../../templates"
+import translations from "../../translations"
 
 const ANIMATION_DELAY = 25
 
@@ -32,7 +33,7 @@ const switches = (switch1, switch2, switch3) => (
 const countSteps = sequence => sequence["leftMiddle"].alpha.length
 
 class WalkingGaitsPage extends Component {
-    pageName = SECTION_NAMES.walkingGaits
+    pageName = "walkingGaits"
     currentTwist = 0
     walkSequence = null
     state = {
@@ -151,27 +152,41 @@ class WalkingGaitsPage extends Component {
     }
 
     get widgetsSwitch() {
-        const value = this.state.showGaitWidgets ? "controlsShown" : "poseShown"
+        const { language } = this.props
+        const { walking } = translations[language]
+        const value = this.state.showGaitWidgets
+            ? walking.controlsShown
+            : walking.poseShown
         return newSwitch("widgetSw", value, this.toggleWidgets)
     }
 
     get animatingSwitch() {
-        const value = this.state.isAnimating ? "PLAYING..." : "...PAUSED. "
+        const { language } = this.props
+        const { walking } = translations[language]
+        const value = this.state.isAnimating ? walking.playing : walking.paused
         return newSwitch("animatingSw", value, this.toggleAnimating)
     }
 
     get gaitTypeSwitch() {
-        const value = this.state.isTripodGait ? "tripodGait" : "rippleGait"
+        const { language } = this.props
+        const { walking } = translations[language]
+        const value = this.state.isTripodGait
+            ? walking.tripodGait
+            : walking.rippleGait
         return newSwitch("gaitSw", value, this.toggleGaitType)
     }
 
     get directionSwitch() {
-        const value = this.state.isForward ? "isForward" : "isBackward"
+        const { language } = this.props
+        const { walking } = translations[language]
+        const value = this.state.isForward ? walking.isForward : walking.isBackward
         return newSwitch("directionSw", value, this.toggleDirection)
     }
 
     get rotateSwitch() {
-        const value = this.state.inWalkMode ? "isWalk" : "isRotate"
+        const { language } = this.props
+        const { walking } = translations[language]
+        const value = this.state.inWalkMode ? walking.isWalk : walking.isRotate
         return newSwitch("rotateSw", value, this.toggleWalkMode)
     }
 
@@ -209,14 +224,16 @@ class WalkingGaitsPage extends Component {
         const { showGaitWidgets } = this.state
         const { pose } = this.props.params
 
+        const { language } = this.props
+        const title = translations[language].sections[this.pageName]
         return (
-            <Card title={<h2>{this.pageName}</h2>} other={this.animationCount}>
+            <Card title={<h2>{title}</h2>} other={this.animationCount}>
                 {animationControlSwitches}
 
                 <div hidden={!showGaitWidgets}>
                     {gaitControlSwitches}
                     {this.sliders}
-                    <ResetButton reset={this.reset} />
+                    <ResetButton reset={this.reset} language={language} />
                 </div>
 
                 <div hidden={showGaitWidgets}>

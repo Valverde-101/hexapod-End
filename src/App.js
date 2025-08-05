@@ -1,8 +1,8 @@
 import React from "react"
 import { BrowserRouter as Router } from "react-router-dom"
 import { DEFAULT_POSE } from "./templates"
-import { SECTION_NAMES } from "./components/vars"
 import { Nav, NavDetailed, DimensionsWidget } from "./components"
+import translations from "./translations"
 import { updateHexapod, Page } from "./AppHelpers"
 import HexapodPlot from "./components/HexapodPlot"
 
@@ -16,19 +16,25 @@ class App extends React.Component {
         inHexapodPage: false,
         hexapod: updateHexapod("default"),
         revision: 0,
+        language: "es",
     }
 
     /* * * * * * * * * * * * * *
      * Page load Callback
      * * * * * * * * * * * * * */
 
-    onPageLoad = pageName => {
-        document.title = pageName + " - Mithi's Bare Minimum Hexapod Robot Simulator"
+    toggleLanguage = () =>
+        this.setState({ language: this.state.language === "es" ? "en" : "es" })
+
+    onPageLoad = pageKey => {
+        const pageName = translations[this.state.language].sections[pageKey]
+        document.title =
+            pageName + " - Mithi's Bare Minimum Hexapod Robot Simulator"
         gtag("config", "UA-170794768-1", {
             page_path: window.location.pathname + window.location.search,
         })
 
-        if (pageName === SECTION_NAMES.landingPage) {
+        if (pageKey === "landingPage") {
             this.setState({ inHexapodPage: false })
             return
         }
@@ -57,6 +63,7 @@ class App extends React.Component {
         <Component
             onMount={this.onPageLoad}
             onUpdate={this.manageState}
+            language={this.state.language}
             params={{
                 dimensions: this.state.hexapod.dimensions,
                 pose: this.state.hexapod.pose,
@@ -70,17 +77,23 @@ class App extends React.Component {
 
     render = () => (
         <Router>
-            <Nav />
+            <Nav
+                language={this.state.language}
+                toggleLanguage={this.toggleLanguage}
+            />
             <div id="main">
                 <div id="sidebar">
                     <div hidden={!this.state.inHexapodPage}>
                         <DimensionsWidget
                             params={{ dimensions: this.state.hexapod.dimensions }}
                             onUpdate={this.manageState}
+                            language={this.state.language}
                         />
                     </div>
                     <Page pageComponent={this.pageComponent} />
-                    {!this.state.inHexapodPage ? <NavDetailed /> : null}
+                    {!this.state.inHexapodPage ? (
+                        <NavDetailed language={this.state.language} />
+                    ) : null}
                 </div>
                 <div id="plot" className="border" hidden={!this.state.inHexapodPage}>
                     <HexapodPlot
@@ -89,7 +102,9 @@ class App extends React.Component {
                     />
                 </div>
             </div>
-            {this.state.inHexapodPage ? <NavDetailed /> : null}
+            {this.state.inHexapodPage ? (
+                <NavDetailed language={this.state.language} />
+            ) : null}
         </Router>
     )
 }

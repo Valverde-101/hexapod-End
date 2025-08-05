@@ -14,10 +14,10 @@ const DIMENSIONS = {
 describe("Dimension Widget", () => {
     test("renders component correctly", () => {
         render(<DimensionsWidget params={{ dimensions: DIMENSIONS }} />)
-        expect(screen.getByRole("heading")).toHaveTextContent("Dimensions")
+        expect(screen.getByRole("heading")).toHaveTextContent("Dimensiones")
         expect(screen.getByRole("checkbox")).toBeInTheDocument()
 
-        const button = screen.getByRole("button", { name: "reset" })
+        const button = screen.getByRole("button", { name: "Reiniciar" })
         expect(button).toBeInTheDocument()
 
         Object.entries(DIMENSIONS).forEach(([name, value]) => {

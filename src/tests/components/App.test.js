@@ -23,7 +23,7 @@ Default Dimensions Widget
  * * * */
 
 const expectToHaveDefaultDimensionsWidget = () => {
-    const heading = screen.getByRole("heading", { name: "Dimensions" })
+    const heading = screen.getByRole("heading", { name: "Dimensiones" })
     expect(heading).toBeInTheDocument()
 
     const dimensions = ["front", "middle", "side", "femur", "coxia", "tibia"]
@@ -49,7 +49,7 @@ Default Leg Patterns Page
  * * * */
 
 const expectToHaveDefaultLegPatternsPage = () => {
-    const heading = screen.getByRole("heading", { name: "Leg Patterns" })
+    const heading = screen.getByRole("heading", { name: "Patrones de patas" })
     expect(heading).toBeInTheDocument()
     const sliderNames = ["alpha", "beta", "gamma"]
 
@@ -67,7 +67,7 @@ Default Inverse Kinematics Page
  * * * */
 
 const expectToHaveDefaultInverseKinematics = () => {
-    const heading = screen.getByRole("heading", { name: "Inverse Kinematics" })
+    const heading = screen.getByRole("heading", { name: "Cinemática inversa" })
     expect(heading).toBeInTheDocument()
 
     const attributes = [
@@ -104,7 +104,7 @@ Default Forward Kinematics Page
  * * * */
 
 const expectToHaveDefaultForwardKinematics = () => {
-    const heading = screen.getByRole("heading", { name: "Forward Kinematics" })
+    const heading = screen.getByRole("heading", { name: "Cinemática directa" })
     expect(heading).toBeInTheDocument()
 
     const angles = ["alpha", "beta", "gamma"]
@@ -137,7 +137,7 @@ Elements all pages share
 const expectEachPage = (
     flags = { numberOfResetButtons: 2, numberOfToggleSwitches: 1 }
 ) => {
-    const resetButtons = screen.getAllByRole("button", { name: "reset" })
+    const resetButtons = screen.getAllByRole("button", { name: "Reiniciar" })
     const toggleSwitches = screen.getAllByRole("checkbox")
     expect(resetButtons).toHaveLength(flags.numberOfResetButtons)
     expect(toggleSwitches).toHaveLength(flags.numberOfToggleSwitches)
@@ -157,35 +157,35 @@ describe("App", () => {
     })
 
     test("Navigates to Leg Patterns page", () => {
-        click("Leg Patterns")
+        click("Patrones de patas")
         expectEachPage()
         expectToHaveDefaultLegPatternsPage()
     })
 
     test("Navigates to Inverse Kinematics page", () => {
-        click("Inverse Kinematics")
+        click("Cinemática inversa")
         expectEachPage()
         expectToHaveDefaultInverseKinematics()
     })
 
     test("Navigates to Forward Kinematics page", () => {
-        click("Forward Kinematics")
+        click("Cinemática directa")
         expectEachPage({ numberOfResetButtons: 2, numberOfToggleSwitches: 2 })
         expectToHaveDefaultForwardKinematics()
     })
 
     test("Navigates to Landing Page", () => {
-        click("Root")
+        click("Inicio")
         const heading = screen.getByRole("heading", {
-            name: "Mithi's Bare Minimum Hexapod Robot Simulator",
+            name: "Simulador de robot hexápodo mínimo de Mithi",
         })
         expect(heading).toBeInTheDocument()
 
         const wrongHeadings = [
-            "Dimensions",
-            "Leg Patterns",
-            "Inverse Kinematics",
-            "Forward Kinematics",
+            "Dimensiones",
+            "Patrones de patas",
+            "Cinemática inversa",
+            "Cinemática directa",
         ]
         wrongHeadings.forEach(name =>
             expect(screen.queryByRole("heading", { name })).toBeNull()

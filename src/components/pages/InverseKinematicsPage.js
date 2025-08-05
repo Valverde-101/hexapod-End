@@ -1,12 +1,13 @@
 import React, { Component } from "react"
 import { sliderList, Card, ResetButton, AlertBox } from "../generic"
 import { solveInverseKinematics } from "../../hexapod"
-import { SECTION_NAMES, IK_SLIDERS_LABELS } from "../vars"
+import { IK_SLIDERS_LABELS } from "../vars"
 import { DEFAULT_IK_PARAMS } from "../../templates"
 import PoseTable from "../pagePartials/PoseTable"
+import translations from "../../translations"
 
 class InverseKinematicsPage extends Component {
-    pageName = SECTION_NAMES.inverseKinematics
+    pageName = "inverseKinematics"
     state = { ikParams: DEFAULT_IK_PARAMS, errorMessage: null }
 
     componentDidMount = () => this.props.onMount(this.pageName)
@@ -53,14 +54,18 @@ class InverseKinematicsPage extends Component {
         return <PoseTable pose={this.props.params.pose} />
     }
 
-    render = () => (
-        <Card title={<h2>{this.pageName}</h2>}>
-            <div className="grid-cols-3">{this.sliders.slice(0, 6)}</div>
-            <div className="grid-cols-2">{this.sliders.slice(6, 8)}</div>
-            <ResetButton reset={this.reset} />
-            {this.additionalInfo}
-        </Card>
-    )
+    render = () => {
+        const { language } = this.props
+        const title = translations[language].sections[this.pageName]
+        return (
+            <Card title={<h2>{title}</h2>}>
+                <div className="grid-cols-3">{this.sliders.slice(0, 6)}</div>
+                <div className="grid-cols-2">{this.sliders.slice(6, 8)}</div>
+                <ResetButton reset={this.reset} language={language} />
+                {this.additionalInfo}
+            </Card>
+        )
+    }
 }
 
 export default InverseKinematicsPage
