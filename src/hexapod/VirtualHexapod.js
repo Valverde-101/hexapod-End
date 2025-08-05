@@ -132,7 +132,8 @@ class VirtualHexapod {
         pose,
         flags = { hasNoPoints: false, assumeKnownGroundPoints: false, wontRotate: false }
     ) {
-        Object.assign(this, { dimensions, pose })
+        const completePose = { ...DEFAULT_POSE, ...pose }
+        Object.assign(this, { dimensions, pose: completePose })
 
         if (flags.hasNoPoints) {
             return

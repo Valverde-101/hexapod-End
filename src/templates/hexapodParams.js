@@ -34,8 +34,8 @@ const DEFAULT_POSE = {
     rightMiddle: { alpha: 0, beta: 0, gamma: 0 },
     leftBack: { alpha: 0, beta: 0, gamma: 0 },
     rightBack: { alpha: 0, beta: 0, gamma: 0 },
-    leftArm: { alpha: 0, beta: 0, gamma: 0 },
-    rightArm: { alpha: 0, beta: 0, gamma: 0 },
+    leftArm: { alpha: 0, beta: 80, gamma: 0 },
+    rightArm: { alpha: 0, beta: 80, gamma: 0 },
 }
 
 const DEFAULT_PATTERN_PARAMS = { alpha: 0, beta: 0, gamma: 0 }
