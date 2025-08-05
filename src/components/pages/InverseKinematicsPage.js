@@ -5,7 +5,6 @@ import { IK_SLIDERS_LABELS } from "../vars"
 import { DEFAULT_IK_PARAMS } from "../../templates"
 import PoseTable from "../pagePartials/PoseTable"
 import translations from "../../translations"
-import ArmsMenu from "../ArmsMenu"
 
 class InverseKinematicsPage extends Component {
     pageName = "inverseKinematics"
@@ -59,15 +58,12 @@ class InverseKinematicsPage extends Component {
         const { language } = this.props
         const title = translations[language].sections[this.pageName]
         return (
-            <>
-                <Card title={<h2>{title}</h2>}>
-                    <div className="grid-cols-3">{this.sliders.slice(0, 6)}</div>
-                    <div className="grid-cols-2">{this.sliders.slice(6, 8)}</div>
-                    <ResetButton reset={this.reset} language={language} />
-                    {this.additionalInfo}
-                </Card>
-                <ArmsMenu language={language} />
-            </>
+            <Card title={<h2>{title}</h2>}>
+                <div className="grid-cols-3">{this.sliders.slice(0, 6)}</div>
+                <div className="grid-cols-2">{this.sliders.slice(6, 8)}</div>
+                <ResetButton reset={this.reset} language={language} />
+                {this.additionalInfo}
+            </Card>
         )
     }
 }
