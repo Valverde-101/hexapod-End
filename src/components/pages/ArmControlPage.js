@@ -1,8 +1,7 @@
 import React, { Component } from "react"
 import LegPoseWidget from "../pagePartials/LegPoseWidgets"
 import { Card, ResetButton, ToggleSwitch, NumberInputField, Slider } from "../generic"
-import { DEFAULT_POSE, DEFAULT_DIMENSIONS } from "../../templates"
-import { RANGE_PARAMS } from "../vars"
+import { DEFAULT_POSE } from "../../templates"
 import translations from "../../translations"
 
 class ArmControlPage extends Component {
@@ -11,18 +10,7 @@ class ArmControlPage extends Component {
 
     componentDidMount = () => this.props.onMount(this.pageName)
 
-    reset = () => {
-        this.props.onUpdate("pose", { pose: DEFAULT_POSE })
-        const { dimensions } = this.props.params
-        const d = DEFAULT_DIMENSIONS
-        const newDimensions = {
-            ...dimensions,
-            armCoxia: d.armCoxia,
-            armFemur: d.armFemur,
-            armTibia: d.armTibia,
-        }
-        this.props.onUpdate("dimensions", { dimensions: newDimensions })
-    }
+    reset = () => this.props.onUpdate("pose", { pose: DEFAULT_POSE })
 
     toggleMode = () => {
         const WidgetType = this.state.WidgetType === Slider ? NumberInputField : Slider
@@ -95,32 +83,6 @@ class ArmControlPage extends Component {
         return <ToggleSwitch {...props} />
     }
 
-    updateDimensions = (name, value) => {
-        const dimensions = { ...this.props.params.dimensions, [name]: value }
-        this.props.onUpdate("dimensions", { dimensions })
-    }
-
-    get dimensionInputs() {
-        const { minVal, maxVal } = RANGE_PARAMS.dimensionInputs
-        const rangeParams = { minVal, maxVal, stepVal: 1 }
-        const dimensions = this.props.params.dimensions
-        const names = ["armCoxia", "armFemur", "armTibia"]
-
-        return (
-            <div className="grid-cols-3">
-                {names.map(name => (
-                    <NumberInputField
-                        key={name}
-                        name={name}
-                        value={dimensions[name]}
-                        rangeParams={rangeParams}
-                        handleChange={this.updateDimensions}
-                    />
-                ))}
-            </div>
-        )
-    }
-
     render() {
         const { language } = this.props
         const title = translations[language].sections[this.pageName]
@@ -135,7 +97,6 @@ class ArmControlPage extends Component {
                 }
             >
                 <div className="grid-cols-1">{this.renderWidget(name)}</div>
-                {this.dimensionInputs}
                 <ResetButton reset={this.reset} language={language} />
             </Card>
         )
