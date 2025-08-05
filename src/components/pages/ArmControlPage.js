@@ -1,8 +1,9 @@
 import React, { Component } from "react"
 import LegPoseWidget from "../pagePartials/LegPoseWidgets"
 import { Card, ResetButton, ToggleSwitch, NumberInputField, Slider } from "../generic"
-import { DEFAULT_POSE } from "../../templates"
+import { DEFAULT_POSE, DEFAULT_DIMENSIONS } from "../../templates"
 import translations from "../../translations"
+import { ARM_DIMENSION_NAMES, RANGE_PARAMS } from "../vars"
 
 class ArmControlPage extends Component {
     pageName = "armControl"
@@ -10,7 +11,22 @@ class ArmControlPage extends Component {
 
     componentDidMount = () => this.props.onMount(this.pageName)
 
-    reset = () => this.props.onUpdate("pose", { pose: DEFAULT_POSE })
+    reset = () => {
+        const { pose, dimensions } = this.props.params
+        const newPose = {
+            ...pose,
+            leftArm: { ...DEFAULT_POSE.leftArm },
+            rightArm: { ...DEFAULT_POSE.rightArm },
+        }
+        const newDimensions = {
+            ...dimensions,
+            armCoxia: DEFAULT_DIMENSIONS.armCoxia,
+            armFemur: DEFAULT_DIMENSIONS.armFemur,
+            armTibia: DEFAULT_DIMENSIONS.armTibia,
+        }
+        this.props.onUpdate("pose", { pose: newPose })
+        this.props.onUpdate("dimensions", { dimensions: newDimensions })
+    }
 
     toggleMode = () => {
         const WidgetType = this.state.WidgetType === Slider ? NumberInputField : Slider
@@ -35,6 +51,32 @@ class ArmControlPage extends Component {
             newPose.rightArm = { ...pose.rightArm, [angle]: v }
         }
         this.props.onUpdate("pose", { pose: newPose })
+    }
+
+    updateDimension = (name, value) => {
+        const dimensions = {
+            ...this.props.params.dimensions,
+            [name]: Number(value),
+        }
+        this.props.onUpdate("dimensions", { dimensions })
+    }
+
+    get dimensionFields() {
+        const { minVal, maxVal, stepVal } = RANGE_PARAMS.dimensionInputs
+        const dims = this.props.params.dimensions
+        return (
+            <div className="grid-cols-3">
+                {ARM_DIMENSION_NAMES.map(name => (
+                    <NumberInputField
+                        key={name}
+                        name={name}
+                        value={dims[name]}
+                        rangeParams={{ minVal, maxVal, stepVal }}
+                        handleChange={this.updateDimension}
+                    />
+                ))}
+            </div>
+        )
     }
 
     get selectionMenu() {
@@ -97,6 +139,7 @@ class ArmControlPage extends Component {
                 }
             >
                 <div className="grid-cols-1">{this.renderWidget(name)}</div>
+                {this.dimensionFields}
                 <ResetButton reset={this.reset} language={language} />
             </Card>
         )

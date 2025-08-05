@@ -9,7 +9,13 @@ class DimensionsWidget extends Component {
     sectionKey = "dimensions"
     state = { isFine: true }
 
-    reset = () => this.props.onUpdate("dimensions", { dimensions: DEFAULT_DIMENSIONS })
+    reset = () => {
+        const dimensions = { ...this.props.params.dimensions }
+        DIMENSION_NAMES.forEach(name => {
+            dimensions[name] = DEFAULT_DIMENSIONS[name]
+        })
+        this.props.onUpdate("dimensions", { dimensions })
+    }
 
     toggleMode = () => this.setState({ isFine: !this.state.isFine })
 

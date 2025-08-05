@@ -16,16 +16,11 @@ const PATH_NAMES = {
 
 const ANGLE_NAMES = ["alpha", "beta", "gamma"]
 const TAIL_ANGLE_NAMES = ["yaw", "theta1", "theta2", "theta3", "theta4", "theta5"]
-const DIMENSION_NAMES = [
-    "front",
-    "side",
-    "middle",
-    "coxia",
-    "femur",
-    "tibia",
-    "armCoxia",
-    "armFemur",
-    "armTibia",
+const DIMENSION_NAMES = ["front", "side", "middle", "coxia", "femur", "tibia"]
+
+const ARM_DIMENSION_NAMES = ["armCoxia", "armFemur", "armTibia"]
+
+const TAIL_DIMENSION_NAMES = [
     "tailSegment1",
     "tailSegment2",
     "tailSegment3",
@@ -178,6 +173,8 @@ export {
     ANGLE_NAMES,
     TAIL_ANGLE_NAMES,
     DIMENSION_NAMES,
+    ARM_DIMENSION_NAMES,
+    TAIL_DIMENSION_NAMES,
     LEG_NAMES,
     ARM_NAMES,
     IK_SLIDERS_LABELS,
