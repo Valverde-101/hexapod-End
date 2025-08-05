@@ -9,6 +9,7 @@ import {
     ForwardKinematicsPage,
     LegPatternPage,
     LandingPage,
+    ArmControlPage,
 } from "./components/pages"
 
 const Page = ({ pageComponent }) => (
@@ -27,6 +28,9 @@ const Page = ({ pageComponent }) => (
         </Route>
         <Route path={PATH_NAMES.walkingGaits} exact>
             {pageComponent(WalkingGaitsPage)}
+        </Route>
+        <Route path={PATH_NAMES.armControl} exact>
+            {pageComponent(ArmControlPage)}
         </Route>
         <Route>
             <Redirect to="/" />

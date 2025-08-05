@@ -3,6 +3,7 @@ import InverseKinematicsPage from "./InverseKinematicsPage"
 import LandingPage from "./LandingPage"
 import LegPatternPage from "./LegPatternPage"
 import WalkingGaitsPage from "./WalkingGaitsPage"
+import ArmControlPage from "./ArmControlPage"
 
 export {
     ForwardKinematicsPage,
@@ -10,4 +11,5 @@ export {
     LandingPage,
     LegPatternPage,
     WalkingGaitsPage,
+    ArmControlPage,
 }

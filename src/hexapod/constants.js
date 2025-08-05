@@ -12,6 +12,8 @@ const POSITION_NAME_TO_ID_MAP = {
     leftMiddle: 3,
     leftBack: 4,
     rightBack: 5,
+    leftArm: 6,
+    rightArm: 7,
 }
 
 const POSITION_NAMES_LIST = [
@@ -66,6 +68,8 @@ const POSITION_NAME_TO_AXIS_ANGLE_MAP = {
     leftMiddle: 180,
     leftBack: 225,
     rightBack: 315,
+    rightArm: 70,
+    leftArm: 110,
 }
 
 const POSITION_NAME_TO_IS_LEFT_MAP = {
@@ -75,6 +79,8 @@ const POSITION_NAME_TO_IS_LEFT_MAP = {
     leftMiddle: true,
     leftBack: true,
     rightBack: false,
+    rightArm: false,
+    leftArm: true,
 }
 
 const NUMBER_OF_LEGS = 6
