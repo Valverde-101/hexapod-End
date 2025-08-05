@@ -18,6 +18,7 @@
     for the kinematics and inverse kinematics page, where each leg angles can be set individually
  * * * */
 import VirtualHexapod from "../hexapod/VirtualHexapod"
+import { DEFAULT_TAIL_DIMENSIONS } from "../templates"
 import { POSITION_NAMES_LIST } from "../hexapod/constants"
 import { expectToBeEqualPoints, expectVectorsToHaveSameXYZ } from "./helpers"
 import CASE1 from "./cases/VirtualHexapod/patterns/case1"
@@ -31,7 +32,11 @@ test.each(CASES)("Should twist or not twist hexapod appropriately: %p", thisCase
         {}
     )
 
-    const virtualHexapod = new VirtualHexapod(params.dimensions, pose)
+    const virtualHexapod = new VirtualHexapod(
+        params.dimensions,
+        pose,
+        DEFAULT_TAIL_DIMENSIONS
+    )
 
     virtualHexapod.body.allPointsList.forEach((point, index) =>
         expectToBeEqualPoints(point, result.bodyAllPointsList[index])

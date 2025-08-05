@@ -67,6 +67,7 @@ class App extends React.Component {
             params={{
                 dimensions: this.state.hexapod.dimensions,
                 pose: this.state.hexapod.pose,
+                tailDimensions: this.state.hexapod.tailDimensions,
             }}
         />
     )

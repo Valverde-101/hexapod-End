@@ -10,6 +10,7 @@ import {
     LegPatternPage,
     LandingPage,
     ArmControlPage,
+    TailControlPage,
 } from "./components/pages"
 
 const Page = ({ pageComponent }) => (
@@ -32,6 +33,9 @@ const Page = ({ pageComponent }) => (
         <Route path={PATH_NAMES.armControl} exact>
             {pageComponent(ArmControlPage)}
         </Route>
+        <Route path={PATH_NAMES.tailControl} exact>
+            {pageComponent(TailControlPage)}
+        </Route>
         <Route>
             <Redirect to="/" />
         </Route>
@@ -40,18 +44,26 @@ const Page = ({ pageComponent }) => (
 
 const updateHexapod = (updateType, newParam, oldHexapod) => {
     if (updateType === "default") {
-        return new VirtualHexapod(defaults.DEFAULT_DIMENSIONS, defaults.DEFAULT_POSE)
+        return new VirtualHexapod(
+            defaults.DEFAULT_DIMENSIONS,
+            defaults.DEFAULT_POSE,
+            defaults.DEFAULT_TAIL_DIMENSIONS
+        )
     }
 
     let hexapod = null
-    const { pose, dimensions } = oldHexapod
+    const { pose, dimensions, tailDimensions } = oldHexapod
 
     if (updateType === "pose") {
-        hexapod = new VirtualHexapod(dimensions, newParam.pose)
+        hexapod = new VirtualHexapod(dimensions, newParam.pose, tailDimensions)
     }
 
     if (updateType === "dimensions") {
-        hexapod = new VirtualHexapod(newParam.dimensions, pose)
+        hexapod = new VirtualHexapod(newParam.dimensions, pose, tailDimensions)
+    }
+
+    if (updateType === "tailDimensions") {
+        hexapod = new VirtualHexapod(dimensions, pose, newParam.tailDimensions)
     }
 
     if (updateType === "hexapod") {

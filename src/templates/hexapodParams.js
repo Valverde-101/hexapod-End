@@ -15,6 +15,12 @@ const DEFAULT_ARM_DIMENSIONS = {
     tibia: 80,
 }
 
+const DEFAULT_TAIL_DIMENSIONS = {
+    segments: [80, 80, 80, 80, 80],
+    thickness: 20,
+    mountAngle: 0,
+}
+
 const DEFAULT_DIMENSIONS = {
     front: 100,
     side: 100,
@@ -36,6 +42,16 @@ const DEFAULT_POSE = {
     rightBack: { alpha: 0, beta: 0, gamma: 0 },
     leftArm: { alpha: 0, beta: 80, gamma: 0 },
     rightArm: { alpha: 0, beta: 80, gamma: 0 },
+    tail: { yaw: 0, theta1: 0, theta2: 0, theta3: 0, theta4: 0, theta5: 0 },
+}
+
+const DEFAULT_TAIL_POSE = {
+    yaw: 0,
+    theta1: 0,
+    theta2: 0,
+    theta3: 0,
+    theta4: 0,
+    theta5: 0,
 }
 
 const DEFAULT_PATTERN_PARAMS = { alpha: 0, beta: 0, gamma: 0 }
@@ -67,8 +83,10 @@ export {
     DEFAULT_DIMENSIONS,
     DEFAULT_LEG_DIMENSIONS,
     DEFAULT_ARM_DIMENSIONS,
+    DEFAULT_TAIL_DIMENSIONS,
     DEFAULT_BODY_DIMENSIONS,
     DEFAULT_POSE,
+    DEFAULT_TAIL_POSE,
     DEFAULT_IK_PARAMS,
     DEFAULT_PATTERN_PARAMS,
     DEFAULT_GAIT_PARAMS,

@@ -1,7 +1,8 @@
 import { DATA, SCENE, LAYOUT, CAMERA_VIEW } from "./"
 
-const _getSumOfDimensions = dimensions =>
-    Object.values(dimensions).reduce((sum, dimension) => sum + dimension, 0)
+const _getSumOfDimensions = (dimensions, tailDimensions) =>
+    Object.values(dimensions).reduce((sum, dimension) => sum + dimension, 0) +
+    tailDimensions.segments.reduce((s, d) => s + d, 0)
 
 const _drawHexapod = hexapod => {
     const polygonVertices = hexapod.body.closedPointsList
@@ -9,7 +10,7 @@ const _drawHexapod = hexapod => {
     const bodyY = polygonVertices.map(point => point.y)
     const bodyZ = polygonVertices.map(point => point.z)
     const { head, cog } = hexapod.body
-    const { cogProjection, legs, arms = [], groundContactPoints } = hexapod
+    const { cogProjection, legs, arms = [], tail, groundContactPoints } = hexapod
 
     const dBodyMesh = {
         ...DATA[0],
@@ -60,6 +61,15 @@ const _drawHexapod = hexapod => {
         y: arm.allPointsList.map(point => point.y),
         z: arm.allPointsList.map(point => point.z),
     }))
+
+    const dTail = {
+        ...DATA[5],
+        name: "tail",
+        line: { ...DATA[5].line, width: hexapod.tailDimensions.thickness },
+        x: tail.allPointsList.map(point => point.x),
+        y: tail.allPointsList.map(point => point.y),
+        z: tail.allPointsList.map(point => point.z),
+    }
 
     const dSupportPolygon = {
         ...DATA[11],
@@ -114,6 +124,7 @@ const _drawHexapod = hexapod => {
         dCogProjection,
         ...dLegs,
         ...dArms,
+        dTail,
         dSupportPolygon,
         hXaxis,
         hYaxis,
@@ -129,7 +140,7 @@ const getNewPlotParams = (hexapod, cameraView) => {
     if ([null, undefined, {}].includes(cameraView)) {
         cameraView = CAMERA_VIEW
     }
-    const range = _getSumOfDimensions(hexapod.dimensions)
+    const range = _getSumOfDimensions(hexapod.dimensions, hexapod.tailDimensions)
     const newRange = [-range, range]
     const xaxis = { ...SCENE.xaxis, range: newRange }
     const yaxis = { ...SCENE.yaxis, range: newRange }

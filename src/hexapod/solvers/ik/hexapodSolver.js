@@ -8,6 +8,7 @@ import {
 } from "../../geometry"
 import Vector from "../../Vector"
 import VirtualHexapod from "../../VirtualHexapod"
+import { DEFAULT_TAIL_DIMENSIONS } from "../../../templates"
 import IKSolver from "./IKSolver"
 
 const solveInverseKinematics = (
@@ -31,7 +32,11 @@ const solveInverseKinematics = (
     }
 
     // How the hexapod looks like if the center of gravity is at (0, 0, _)
-    const currentHexapod = new VirtualHexapod(dimensions, ikSolver.pose)
+    const currentHexapod = new VirtualHexapod(
+        dimensions,
+        ikSolver.pose,
+        DEFAULT_TAIL_DIMENSIONS
+    )
     const excludedPositions = ikSolver.legPositionsOffGround
 
     const pivots = findTwoPivotPoints(
@@ -59,7 +64,11 @@ const solveInverseKinematics = (
  * * */
 const solveHexapodParams = (dimensions, rawIKparams, rotateThenShift) => {
     const { tVec, rotMatrix, startPose } = convertIKparams(dimensions, rawIKparams)
-    const startHexapod = new VirtualHexapod(dimensions, startPose)
+    const startHexapod = new VirtualHexapod(
+        dimensions,
+        startPose,
+        DEFAULT_TAIL_DIMENSIONS
+    )
 
     const targets = buildHexapodTargets(startHexapod, rotMatrix, tVec, {
         rotateThenShift,

@@ -31,6 +31,11 @@ const buildLinks = language => {
             icon: ICON_COMPONENTS.circle,
         },
         {
+            path: PATH_NAMES.tailControl,
+            description: t.sections.tailControl,
+            icon: ICON_COMPONENTS.circle,
+        },
+        {
             path: PATH_NAMES.walkingGaits,
             description: t.sections.walkingGaits,
             icon: ICON_COMPONENTS.circle,
