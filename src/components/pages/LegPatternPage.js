@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { sliderList, Card, ResetButton } from "../generic"
 import { DEFAULT_POSE, DEFAULT_PATTERN_PARAMS } from "../../templates"
-import { ANGLE_NAMES } from "../vars"
+import { ANGLE_NAMES, LEG_NAMES } from "../vars"
 import translations from "../../translations"
 
 class LegPatternPage extends Component {
@@ -20,11 +20,11 @@ class LegPatternPage extends Component {
 
     updatePatternPose = (name, value) => {
         const patternParams = { ...this.state.patternParams, [name]: Number(value) }
-        let newPose = {}
+        const newPose = { ...DEFAULT_POSE }
 
-        for (const leg in DEFAULT_POSE) {
+        LEG_NAMES.forEach(leg => {
             newPose[leg] = patternParams
-        }
+        })
 
         this.props.onUpdate("pose", { pose: newPose })
         this.setState({ patternParams })

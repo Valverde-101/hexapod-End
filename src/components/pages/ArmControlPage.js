@@ -89,7 +89,12 @@ class ArmControlPage extends Component {
             { value: "bothOpposite", label: t.bothOpposite },
         ]
         return (
-            <select value={this.state.selection} onChange={this.handleSelection}>
+            <select
+                id="armSelection"
+                className="input"
+                value={this.state.selection}
+                onChange={this.handleSelection}
+            >
                 {options.map(o => (
                     <option value={o.value} key={o.value}>
                         {o.label}
