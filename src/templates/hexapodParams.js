@@ -49,16 +49,16 @@ const DEFAULT_POSE = {
     rightBack: { alpha: 0, beta: 0, gamma: 0 },
     leftArm: { alpha: 0, beta: 80, gamma: 0 },
     rightArm: { alpha: 0, beta: 80, gamma: 0 },
-    tail: { yaw: 0, theta1: 0, theta2: 0, theta3: 0, theta4: 0, theta5: 0 },
+    tail: { yaw: -90, theta1: 20, theta2: 20, theta3: 35, theta4: 55, theta5: 45 },
 }
 
 const DEFAULT_TAIL_POSE = {
-    yaw: 0,
-    theta1: 0,
-    theta2: 0,
-    theta3: 0,
-    theta4: 0,
-    theta5: 0,
+    yaw: -90,
+    theta1: 20,
+    theta2: 20,
+    theta3: 35,
+    theta4: 55,
+    theta5: 45,
 }
 
 const DEFAULT_PATTERN_PARAMS = { alpha: 0, beta: 0, gamma: 0 }
