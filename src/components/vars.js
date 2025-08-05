@@ -13,7 +13,17 @@ const PATH_NAMES = {
 }
 
 const ANGLE_NAMES = ["alpha", "beta", "gamma"]
-const DIMENSION_NAMES = ["front", "side", "middle", "coxia", "femur", "tibia"]
+const DIMENSION_NAMES = [
+    "front",
+    "side",
+    "middle",
+    "coxia",
+    "femur",
+    "tibia",
+    "armCoxia",
+    "armFemur",
+    "armTibia",
+]
 const LEG_NAMES = [
     "leftFront",
     "rightFront",
@@ -22,6 +32,7 @@ const LEG_NAMES = [
     "leftBack",
     "rightBack",
 ]
+const ARM_NAMES = ["leftArm", "rightArm"]
 
 const IK_SLIDERS_LABELS = ["tx", "ty", "tz", "rx", "ry", "rz", "hipStance", "legStance"]
 
@@ -140,6 +151,7 @@ export {
     ANGLE_NAMES,
     DIMENSION_NAMES,
     LEG_NAMES,
+    ARM_NAMES,
     IK_SLIDERS_LABELS,
     GAIT_SLIDER_LABELS,
     RANGE_PARAMS,
@@ -148,4 +160,3 @@ export {
     PATH_LINKS,
     URL_LINKS,
 }
-

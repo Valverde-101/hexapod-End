@@ -9,6 +9,12 @@ const DEFAULT_LEG_DIMENSIONS = {
     tibia: 100,
 }
 
+const DEFAULT_ARM_DIMENSIONS = {
+    armCoxia: 100,
+    armFemur: 100,
+    armTibia: 100,
+}
+
 const DEFAULT_DIMENSIONS = {
     front: 100,
     side: 100,
@@ -16,6 +22,9 @@ const DEFAULT_DIMENSIONS = {
     coxia: 100,
     femur: 100,
     tibia: 100,
+    armCoxia: 100,
+    armFemur: 100,
+    armTibia: 100,
 }
 
 const DEFAULT_POSE = {
@@ -25,6 +34,8 @@ const DEFAULT_POSE = {
     rightMiddle: { alpha: 0, beta: 0, gamma: 0 },
     leftBack: { alpha: 0, beta: 0, gamma: 0 },
     rightBack: { alpha: 0, beta: 0, gamma: 0 },
+    leftArm: { alpha: 0, beta: 0, gamma: 0 },
+    rightArm: { alpha: 0, beta: 0, gamma: 0 },
 }
 
 const DEFAULT_PATTERN_PARAMS = { alpha: 0, beta: 0, gamma: 0 }
@@ -55,6 +66,7 @@ const DEFAULT_GAIT_PARAMS = {
 export {
     DEFAULT_DIMENSIONS,
     DEFAULT_LEG_DIMENSIONS,
+    DEFAULT_ARM_DIMENSIONS,
     DEFAULT_BODY_DIMENSIONS,
     DEFAULT_POSE,
     DEFAULT_IK_PARAMS,
