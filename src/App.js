@@ -1,6 +1,7 @@
 import React from "react"
 import { BrowserRouter as Router } from "react-router-dom"
-import { Nav, NavDetailed } from "./components"
+import { DEFAULT_POSE } from "./templates"
+import { Nav, NavDetailed, DimensionsWidget } from "./components"
 import translations from "./translations"
 import { updateHexapod, Page } from "./AppHelpers"
 import HexapodPlot from "./components/HexapodPlot"
@@ -27,7 +28,8 @@ class App extends React.Component {
 
     onPageLoad = pageKey => {
         const pageName = translations[this.state.language].sections[pageKey]
-        document.title = pageName + " - Mithi's Bare Minimum Hexapod Robot Simulator"
+        document.title =
+            pageName + " - Mithi's Bare Minimum Hexapod Robot Simulator"
         gtag("config", "UA-170794768-1", {
             page_path: window.location.pathname + window.location.search,
         })
@@ -38,6 +40,7 @@ class App extends React.Component {
         }
 
         this.setState({ inHexapodPage: true })
+        this.manageState("pose", { pose: DEFAULT_POSE })
     }
 
     /* * * * * * * * * * * * * *
@@ -74,9 +77,19 @@ class App extends React.Component {
 
     render = () => (
         <Router>
-            <Nav language={this.state.language} toggleLanguage={this.toggleLanguage} />
+            <Nav
+                language={this.state.language}
+                toggleLanguage={this.toggleLanguage}
+            />
             <div id="main">
                 <div id="sidebar">
+                    <div hidden={!this.state.inHexapodPage}>
+                        <DimensionsWidget
+                            params={{ dimensions: this.state.hexapod.dimensions }}
+                            onUpdate={this.manageState}
+                            language={this.state.language}
+                        />
+                    </div>
                     <Page pageComponent={this.pageComponent} />
                     {!this.state.inHexapodPage ? (
                         <NavDetailed language={this.state.language} />
