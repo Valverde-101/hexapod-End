@@ -141,11 +141,14 @@ tr:hover {
 }
 
 #top-bar {
-    display: grid;
-    grid-template-columns: auto auto auto auto auto auto 1fr;
+    display: flex;
     list-style-type: none;
     margin: 0px;
     padding-left: 0px;
+}
+
+#top-bar .language-button {
+    margin-left: auto;
 }
 
 .link-icon {
