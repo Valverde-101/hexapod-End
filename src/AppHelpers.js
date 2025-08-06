@@ -1,5 +1,5 @@
 import React from "react"
-import { Route, Switch, Redirect } from "react-router-dom"
+import { Routes, Route, Navigate } from "react-router-dom"
 import { PATH_NAMES } from "./components/vars"
 import * as defaults from "./templates"
 import { VirtualHexapod } from "./hexapod"
@@ -14,32 +14,34 @@ import {
 } from "./components/pages"
 
 const Page = ({ pageComponent }) => (
-    <Switch>
-        <Route path="/" exact>
-            {pageComponent(LandingPage)}
-        </Route>
-        <Route path={PATH_NAMES.legPatterns} exact>
-            {pageComponent(LegPatternPage)}
-        </Route>
-        <Route path={PATH_NAMES.forwardKinematics} exact>
-            {pageComponent(ForwardKinematicsPage)}
-        </Route>
-        <Route path={PATH_NAMES.inverseKinematics} exact>
-            {pageComponent(InverseKinematicsPage)}
-        </Route>
-        <Route path={PATH_NAMES.walkingGaits} exact>
-            {pageComponent(WalkingGaitsPage)}
-        </Route>
-        <Route path={PATH_NAMES.armControl} exact>
-            {pageComponent(ArmControlPage)}
-        </Route>
-        <Route path={PATH_NAMES.tailControl} exact>
-            {pageComponent(TailControlPage)}
-        </Route>
-        <Route>
-            <Redirect to="/" />
-        </Route>
-    </Switch>
+    <Routes>
+        <Route path="/" element={pageComponent(LandingPage)} />
+        <Route
+            path={PATH_NAMES.legPatterns}
+            element={pageComponent(LegPatternPage)}
+        />
+        <Route
+            path={PATH_NAMES.forwardKinematics}
+            element={pageComponent(ForwardKinematicsPage)}
+        />
+        <Route
+            path={PATH_NAMES.inverseKinematics}
+            element={pageComponent(InverseKinematicsPage)}
+        />
+        <Route
+            path={PATH_NAMES.walkingGaits}
+            element={pageComponent(WalkingGaitsPage)}
+        />
+        <Route
+            path={PATH_NAMES.armControl}
+            element={pageComponent(ArmControlPage)}
+        />
+        <Route
+            path={PATH_NAMES.tailControl}
+            element={pageComponent(TailControlPage)}
+        />
+        <Route path="*" element={<Navigate to="/" />} />
+    </Routes>
 )
 
 const updateHexapod = (updateType, newParam, oldHexapod) => {
