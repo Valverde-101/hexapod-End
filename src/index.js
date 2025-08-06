@@ -1,5 +1,5 @@
 import React, { Suspense } from "react"
-import { createRoot } from "react-dom/client"
+import ReactDOM from "react-dom"
 import "./index.css"
 //import "./font.css"
 import * as serviceWorker from "./serviceWorker"
@@ -8,13 +8,13 @@ const App = React.lazy(() =>
     import(/* webpackChunkName: "APP", webpackPreload: true */ "./App")
 )
 
-const root = createRoot(document.getElementById("root"))
-root.render(
+ReactDOM.render(
     <React.StrictMode>
         <Suspense fallback={<p>Mithi's Bare Minimum Hexapod Robot Simulator...</p>}>
             <App />
         </Suspense>
-    </React.StrictMode>
+    </React.StrictMode>,
+    document.getElementById("root")
 )
 
 // If you want your app to work offline and load faster, you can change
