@@ -28,8 +28,7 @@ class App extends React.Component {
 
     onPageLoad = pageKey => {
         const pageName = translations[this.state.language].sections[pageKey]
-        document.title =
-            pageName + " - Mithi's Bare Minimum Hexapod Robot Simulator"
+        document.title = pageName + " - Mithi's Bare Minimum Hexapod Robot Simulator"
         gtag("config", "UA-170794768-1", {
             page_path: window.location.pathname + window.location.search,
         })
@@ -77,10 +76,7 @@ class App extends React.Component {
 
     render = () => (
         <Router>
-            <Nav
-                language={this.state.language}
-                toggleLanguage={this.toggleLanguage}
-            />
+            <Nav language={this.state.language} toggleLanguage={this.toggleLanguage} />
             <div id="main">
                 <div id="sidebar">
                     <div hidden={!this.state.inHexapodPage}>

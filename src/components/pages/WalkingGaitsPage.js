@@ -171,9 +171,7 @@ class WalkingGaitsPage extends Component {
     get gaitTypeSwitch() {
         const { language } = this.props
         const { walking } = translations[language]
-        const value = this.state.isTripodGait
-            ? walking.tripodGait
-            : walking.rippleGait
+        const value = this.state.isTripodGait ? walking.tripodGait : walking.rippleGait
         return newSwitch("gaitSw", value, this.toggleGaitType)
     }
 
