@@ -6,7 +6,7 @@
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat)](https://github.com/prettier/prettier)
 [![buy me coffee](https://img.shields.io/badge/Buy%20me%20-coffee!-orange.svg?logo=buy-me-a-coffee&color=795548)](https://ko-fi.com/minimithi)
 
-# Mithi's Bare-Minimum Hexapod Robot Simulator 2
+# Mithi's Bare-Minimum Hexapod Robot Simulator 2 Leo
 
 <p align="center">
     <img src="https://mithi.github.io/robotics-blog/show-off.gif" alt="drawing" width="400" />
