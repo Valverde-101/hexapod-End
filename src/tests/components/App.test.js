@@ -121,10 +121,7 @@ const expectToHaveDefaultForwardKinematics = () => {
     for (const leg of legs) {
         for (const angle of angles) {
             const label = `${leg}-${angle}`
-            const node = screen.getByRole((role, node) => {
-                return role === "spinbutton" && node.getAttribute("id") === label
-            })
-
+            const node = document.getElementById(label)
             expect(node).toBeInTheDocument()
         }
     }
