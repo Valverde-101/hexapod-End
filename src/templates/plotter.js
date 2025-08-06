@@ -1,4 +1,4 @@
-import { DATA, SCENE, LAYOUT, CAMERA_VIEW } from "./"
+import { DATA, SCENE, LAYOUT } from "./"
 
 const _getSumOfDimensions = dimensions =>
     Object.values(dimensions).reduce((sum, dimension) => sum + dimension, 0)
@@ -133,25 +133,23 @@ const _drawHexapod = hexapod => {
     ]
 }
 
-const getNewPlotParams = (hexapod, cameraView) => {
+const getNewPlotParams = hexapod => {
     const data = _drawHexapod(hexapod)
-    if ([null, undefined, {}].includes(cameraView)) {
-        cameraView = CAMERA_VIEW
-    }
     const range = _getSumOfDimensions(hexapod.dimensions)
     const newRange = [-range, range]
     const xaxis = { ...SCENE.xaxis, range: newRange }
     const yaxis = { ...SCENE.yaxis, range: newRange }
     const zaxis = { ...SCENE.zaxis, range: [-10, 2 * range - 10] }
+    const { camera, ...sceneBase } = SCENE
     const scene = {
-        ...SCENE,
+        ...sceneBase,
         xaxis,
         yaxis,
         zaxis,
-        camera: cameraView,
+        uirevision: true,
     }
 
-    const layout = { ...LAYOUT, scene }
+    const layout = { ...LAYOUT, scene, uirevision: true }
 
     return [data, layout]
 }
