@@ -2,6 +2,7 @@
     "name": "hexapod",
     "version": "0.1.0",
     "private": true,
+    "homepage": ".",
     "dependencies": {
         "plotly.js": "^1.54.7",
         "plotly.js-gl3d-dist-min": "^1.54.7",

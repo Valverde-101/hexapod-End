@@ -1,35 +1,25 @@
-# .github/workflows/deploy.yml
-name: Build and Deploy to GitHub Pages
+name: build-and-deploy
 
 on:
   push:
-    branches: [ master ]    # Ajusta el nombre de la rama según tu proyecto
+    branches: [main]
+  pull_request:
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Setup Node
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: 18         # Cambia la versión si lo necesitas
-
-      - name: Install dependencies
-        run: npm ci
-        env:
-          NODE_OPTIONS: "--openssl-legacy-provider"
-
-      - name: Build project
-        run: npm run build
-        env:
-          NODE_OPTIONS: "--openssl-legacy-provider"
-
-      - name: Deploy to GitHub Pages
+          node-version: 16
+      - run: npm ci
+      - run: npm test -- --watchAll=false
+      - run: npm run build
+      - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/main'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build       # Ajusta a la carpeta generada por tu build
+          publish_dir: ./build
+

@@ -34,4 +34,3 @@ class TailPoseWidget extends Component {
 }
 
 export default TailPoseWidget
-

@@ -106,4 +106,3 @@ class TailControlPage extends Component {
 }
 
 export default TailControlPage
-
